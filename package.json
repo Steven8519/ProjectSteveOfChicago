@@ -1,0 +1,35 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "This a project about Steven McDonald",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index"
+  },
+  "dependencies": {
+    "express": "*",
+    "mongoose": "*",
+    "bcryptjs": "*",
+    "cors": "*",
+    "jsonwebtoken": "*",
+    "body-parser": "*",
+    "passport": "*",
+    "passport-jwt": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Steven8519/ProjectSteveOfChicago.git"
+  },
+  "keywords": [
+    "Steven",
+    "Portfolio"
+  ],
+  "author": "steven",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Steven8519/ProjectSteveOfChicago/issues"
+  },
+  "homepage": "https://github.com/Steven8519/ProjectSteveOfChicago#readme"
+}
+
