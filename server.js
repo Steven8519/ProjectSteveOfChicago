@@ -1,28 +1,49 @@
-/**
- * Created by stevenmcdonald on 2/26/17.
- */
-const express = require("express");
-const path = require("path");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const passport = require("passport");
-const mongoose = require("mongoose");
+const express = require('express');
+const path = require('path');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const passport = require('passport');
+const mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
+const config = require('./config/database');
+
+// Connect to database
+mongoose.connect(config.database);
+
+// If Connection to database is successful.
+mongoose.connection.on('connected', function() {
+    console.log('Connection to database was successful: '+ config.database);
+});
+
+// If Connection to database was unsuccessful
+mongoose.connection.on('error', function(error) {
+    console.log('Connection to database was unsuccessful: '+ error);
+});
 
 const app = express();
 
-// Port
+// User route
+const user = require('./routes/user');
+
+// Port number
 const port = 8080;
 
-// Cors middleware
+// CORS middleware
 app.use(cors());
 
+// Folder for static files
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Body parser middleware
+app.use(bodyParser.json());
+
+app.use('/user', user);
+
 // Index route
-app.get("/", function (request, response) {
-    response.send("This is the index route");
+app.get('/', function(request, response) {
+    response.send('This is the home page');
 });
 
-app.listen(port, function () {
-    console.log("Server running on port: " + port);
+app.listen(port, function() {
+    console.log('Server started on port '+ port);
 });
-
-
