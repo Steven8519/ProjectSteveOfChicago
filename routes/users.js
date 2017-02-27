@@ -7,7 +7,7 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
-router.get("/", function(request, response) {
+router.get("/", function(request, response, next) {
     User.getUsers(function(error, users) {
         if(error) {
             throw error;
@@ -28,7 +28,7 @@ router.get("/:_id", function (request, response) {
 });
 
 // Register
-router.post('/register', (request, response, next) => {
+router.post('/register', (request, response) => {
     let creatUser = new User({
         firstname: request.body.firstname,
         lastname: request.body.lastname,
@@ -48,12 +48,33 @@ router.post('/register', (request, response, next) => {
     });
 });
 
+router.put("/update/:_id", function(request, response) {
+        const id = request.params._id;
+        const user = request.body
+        User.updateUser(id, user, {}, function(error, user) {
+            if(error) {
+                throw error;
+            }
+        response.json(user);
+    });
+});
+
+router.delete("/delete/:_id", function(request, response) {
+        const id = request.params._id;
+        User.deleteUser(id, function(error, user) {
+            if(error) {
+                throw error;
+            }
+        response.json(user);
+    });
+});
+
 // Authenticate
-router.post('/authenticate', function(request, response, next) {
+router.post("/authenticate", function(request, response, next) {
     response.send('AUTHENTICATE');
 });
 
-// Profile
+// User Information
 router.get('/userinfo', function (request, response, next) {
     response.send('User Info');
 });
