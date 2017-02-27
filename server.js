@@ -23,7 +23,7 @@ mongoose.connection.on('error', function(error) {
 const app = express();
 
 // User route
-const user = require('./routes/user');
+const users = require('./routes/users');
 
 // Port number
 const port = 8080;
@@ -37,7 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Body parser middleware
 app.use(bodyParser.json());
 
-app.use('/user', user);
+app.use('/users', users);
 
 // Index route
 app.get('/', function(request, response) {

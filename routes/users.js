@@ -7,6 +7,16 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
+router.get("/", function(request, response) {
+    User.getUsers(function(error, users) {
+        if(error) {
+            throw error;
+        }
+        response.json(users);
+    });
+});
+
+// Return one user by id.
 router.get("/:_id", function (request, response) {
     User.getUserById(request.params._id, function (error, user) {
         if(error) {
