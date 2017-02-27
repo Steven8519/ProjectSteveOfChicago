@@ -3,5 +3,5 @@
  */
 module.exports = {
     database: "mongodb://localhost:27017/users",
-    sercret: "topsecret"
+    secret: "topsecret"
 };

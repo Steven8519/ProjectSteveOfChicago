@@ -5,9 +5,11 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
+const config = require("../config/database");
 const User = require('../models/user');
 
-router.get("/", function(request, response, next) {
+// Retreive all users.
+router.get("/",  function(request, response, next) {
     User.getUsers(function(error, users) {
         if(error) {
             throw error;
@@ -59,7 +61,7 @@ router.put("/update/:_id", function(request, response) {
     });
 });
 
-router.delete("/delete/:_id", function(request, response) {
+router.delete("/delete/:_id", passport.authenticate('jwt', {session: false}), function(request, response) {
         const id = request.params._id;
         User.deleteUser(id, function(error, user) {
             if(error) {
@@ -70,13 +72,45 @@ router.delete("/delete/:_id", function(request, response) {
 });
 
 // Authenticate
-router.post("/authenticate", function(request, response, next) {
-    response.send('AUTHENTICATE');
-});
+router.post('/authenticate', function(request, response, next) {
+  const username = request.body.username;
+  const password = request.body.password;
 
-// User Information
-router.get('/userinfo', function (request, response, next) {
-    response.send('User Info');
+  User.getUserByUsername(username, function(error, user) {
+    if(error) {
+        throw error;
+    }
+
+    if(!user){
+      return response.json({success: false, message: 'User not found'});
+    }
+
+    User.comparePassword(password, user.password, function(error, isMatch) {
+      if(error) {
+        throw error;
+      }
+
+      if(isMatch){
+        const token = jwt.sign(user, config.secret, {
+          expiresIn: 604800
+        });
+
+        res.json({
+          success: true,
+          token: 'JWT '+ token,
+          user: {
+            id: user._id,
+            firstname: user.firstname,
+            lastname: user.lastname,
+            username: user.username,
+            email: user.email
+          }
+        });
+      } else {
+        return response.json({success: false, message: 'Wrong password'});
+      }
+    });
+  });
 });
 
 module.exports = router;

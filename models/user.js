@@ -2,7 +2,6 @@
  * Created by stevenmcdonald on 2/25/17.
  */
 "use strict";
-
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const config = require('../config/database');
@@ -63,7 +62,18 @@ module.exports.updateUser = function (id, user, options, callback) {
     User.findOneAndUpdate(query, update, options, callback);
 };
 
+// Deleting a user
 module.exports.deleteUser = function (id, callback) {
     const query = {_id: id};
     User.remove(query, callback);
+};
+
+// Check to see if user password matches.
+module.exports.comparePassword = function(candidatePassword, hash, callback){
+    bcrypt.compare(candidatePassword, hash, function(error, isMatch) {
+        if(error) {
+            throw error;
+        }
+        callback(null, isMatch);
+    });
 };
