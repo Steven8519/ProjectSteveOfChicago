@@ -9,7 +9,7 @@ const config = require("../config/database");
 const User = require('../models/user');
 
 // Retreive all users.
-router.get("/",  function(request, response, next) {
+router.get("/",  function(request, response) {
     User.getUsers(function(error, users) {
         if(error) {
             throw error;
@@ -95,7 +95,7 @@ router.post('/authenticate', function(request, response, next) {
           expiresIn: 604800
         });
 
-        res.json({
+        response.json({
           success: true,
           token: 'JWT '+ token,
           user: {
