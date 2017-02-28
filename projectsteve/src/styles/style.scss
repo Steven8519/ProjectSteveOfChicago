@@ -1,11 +1,12 @@
-h1 {
-  margin-top: -0.2em;
-}
-
-body {
-  background-color: lighten(#2b3e50, 10%);
+html {
+  background: url(../images/iMac-Template.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;   -o-background-size: cover;
+  background-size: cover;
 }
 
 .navbar {
-  background-color: teal;
+  background-color: tan;
+  width: 100%;
+  margin-bottom: -0.2em;
 }
