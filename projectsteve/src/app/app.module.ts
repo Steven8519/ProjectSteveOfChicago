@@ -15,6 +15,7 @@ import { FooterComponent } from './components/footer/footer.component';
 
 import {ValidateService} from './services/validate.service';
 import {FlashMessagesModule} from 'angular2-flash-messages';
+import { HeaderComponent } from './components/header/header.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -33,7 +34,8 @@ const appRoutes: Routes = [
     RegisterComponent,
     AboutComponent,
     ContactComponent,
-    FooterComponent
+    FooterComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
