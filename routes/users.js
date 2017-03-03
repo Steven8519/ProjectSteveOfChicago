@@ -97,7 +97,7 @@ router.post('/authenticate', function(request, response, next) {
 
         response.json({
           success: true,
-          token: 'JWT '+ token,
+          token: 'JWT' + token,
           user: {
             id: user._id,
             firstname: user.firstname,

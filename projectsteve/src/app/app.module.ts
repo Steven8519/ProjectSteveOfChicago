@@ -17,13 +17,15 @@ import {ValidateService} from './services/validate.service';
 import {AuthService} from './services/auth.service';
 import {FlashMessagesModule} from 'angular2-flash-messages';
 import { HeaderComponent } from './components/header/header.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'about', component: AboutComponent},
   {path: 'contact', component: ContactComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'login', component: LoginComponent}
+  {path: 'login', component: LoginComponent},
+  {path: 'userinfo', component: UserProfileComponent}
 ];
 
 @NgModule({
@@ -36,7 +38,8 @@ const appRoutes: Routes = [
     AboutComponent,
     ContactComponent,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
